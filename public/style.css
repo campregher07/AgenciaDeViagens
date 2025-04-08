@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.cadastro-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 750px;
+    display: flex;
+    overflow: hidden;
+}
+
+.left-side, .right-side {
+    flex: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-side {
+    text-align: left;
+    background: #fff;
+}
+
+.right-side {
+    background: linear-gradient(to right, #ff4081, #f50057);
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: white;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: none;
+    border-radius: 25px;
+    background: #f0f0f0;
+    font-size: 14px;
+    text-indent: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+}
+
+.cadastrar-button {
+    background: linear-gradient(to right, #ff4081, #f50057);
+    color: white;
+}
+
+.cadastrar-button:hover {
+    background: linear-gradient(to right, #f50057, #ff4081);
+}
+
+.listar-button {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    margin-top: 10px;
+}
+
+.listar-button:hover {
+    background: white;
+    color: #ff4081;
+}

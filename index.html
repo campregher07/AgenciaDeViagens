@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Viagens</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="cadastro-container">
+        <div class="left-side">
+            <h1>Cadastro de Viagens</h1>
+            <h2>Nova Viagem</h2>
+            <form action="/home" method="post">
+                <input type="text" id="destino" name="destino" placeholder="Destino" required>
+                <input type="date" id="data_viagem" name="data_viagem" required>
+                <input type="number" id="preco" name="preco" placeholder="Preço (R$)" required>
+                <input type="number" id="vagas" name="vagas" placeholder="Vagas" required>
+                <button type="submit" class="cadastrar-button">Cadastrar Viagem</button>
+            </form>
+        </div>
+        <div class="right-side">
+            <h2>Bem-vindo ao sistema</h2>
+            <p>Gerencie suas viagens de forma rápida e prática.</p>
+            <a href="/listar"><button class="listar-button">Listar Viagens</button></a>
+        </div>
+    </div>
+</body>
+</html>
