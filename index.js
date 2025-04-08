@@ -162,6 +162,7 @@ app.get('/listar', (req, res) => {
                                 <th>Data viagem</th>
                                 <th>Valor</th>
                                 <th>Vagas</th>
+                                <th>Ações</th>
                             </tr>
 
                             ${rows.map(row => `
@@ -171,6 +172,8 @@ app.get('/listar', (req, res) => {
                                     <td>${row.data_viagem.toLocaleDateString('pt-BR')}</td>
                                     <td>${row.preco}</td>
                                     <td>${row.vagas}</td>
+                                    <td><a href="/excluir/${row.id}">Excluir</a>
+                                        <a href="/editar/${row.id}">Editar</a></td>
                                 </tr>
                                 `).join('')}
                         </table>
@@ -207,6 +210,175 @@ app.post('/home', (req, res) => {
         }
     })
 
+});
+
+app.get("/excluir/:id", function(req, res){
+    const id = req.params.id;
+
+    connection.query('DELETE FROM viagens where id = ?', [id], function(err, result) {
+        if(err){
+            console.error("Erro ao excluir o produto: ", err);
+            res.status(500).send('Erro interno ao excluir o produto.');
+            return;
+        }
+
+        console.log("Produto excluido com sucesso!");
+        res.redirect('/listar');
+    });
+});
+
+app.get("/editar/:id", function(req,res){
+    const id = req.params.id;
+    const select = "SELECT * FROM viagens WHERE id = ?";
+
+    connection.query(select, [id], function(err, rows){
+        if(!err){
+            console.log("Produto encontrado com sucesso!");~
+            res.send(`
+                <!DOCTYPE html>
+                    <html lang="pt-br">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Editar Produto</title>
+                        <style>
+                            * {
+                                margin: 0;
+                                padding: 0;
+                                box-sizing: border-box;
+                                font-family: Arial, sans-serif;
+                            }
+                            body {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100vh;
+                                background: #f5f5f5;
+                            }
+                            .edit-container {
+                                display: flex;
+                                width: 600px;
+                                background: white;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                border-radius: 8px;
+                                overflow: hidden;
+                            }
+                            .edit-left {
+                                width: 40%;
+                                background: linear-gradient(to right, #ff4081, #f50057);
+                                color: white;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                padding: 20px;
+                            }
+                            .edit-left h1 {
+                                font-size: 24px;
+                                margin-bottom: 10px;
+                            }
+                            .edit-left p {
+                                font-size: 14px;
+                                text-align: center;
+                            }
+                            .edit-right {
+                                width: 60%;
+                                padding: 40px;
+                            }
+                            .edit-right h1 {
+                                font-size: 22px;
+                                margin-bottom: 10px;
+                                color: #333;
+                            }
+                            .edit-right p {
+                                font-size: 14px;
+                                margin-bottom: 20px;
+                                color: #555;
+                            }
+                            label {
+                                display: block;
+                                font-weight: bold;
+                                margin-top: 10px;
+                            }
+                            input[type="text"],
+                            input[type="date"],
+                            input[type="number"] {
+                                width: 100%;
+                                padding: 10px;
+                                margin-top: 5px;
+                                border: 1px solid #ccc;
+                                border-radius: 5px;
+                            }
+                            .btn {
+                                width: 100%;
+                                padding: 10px;
+                                background: linear-gradient(to right, #ff4081, #f50057);
+                                color: white;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                margin-top: 20px;
+                                font-weight: bold;
+                            }
+                            .btn:hover {
+                                background: linear-gradient(to right, #ff5e9d, #ff2e6a);
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="edit-container">
+                            <div class="edit-left">
+                                <h1>Editar</h1>
+                                <p>Atualize os dados da sua viagem aqui.</p>
+                            </div>
+                            <div class="edit-right">
+                                <h1>✏️ Editar Produto</h1>
+                                <p>Modifique os dados e clique em <strong>Salvar</strong> para atualizar.</p>
+                                <form action="/editar/${id}" method="POST">
+                                    <label for="destino">Destino:</label>
+                                    <input type="text" name="destino" value="${rows[0].destino}" required>
+
+                                    <label for="data_viagem">Data da viagem:</label>
+                                    <input type="date" name="data_viagem" value="${rows[0].data_viagem}" required>
+
+                                    <label for="preco">Preço:</label>
+                                    <input type="number" name="preco" value="${rows[0].preco}" required>
+
+                                    <label for="vagas">Vagas:</label>
+                                    <input type="number" name="vagas" value="${rows[0].vagas}" required>
+
+                                    <input type="submit" value="Salvar" class="btn">
+                                </form>
+                            </div>
+                        </div>
+                    </body>
+                    </html>`);
+        }else{
+            console.log("Erro ao buscar o produto ", err);
+            res.send("Erro")
+        }
+    });
+ 
+});
+
+app.post('/editar/:id', function(req, res){
+    const id = req.params.id; // Obtém o ID do produto a ser editado da URL
+    const destino = req.body.destino; // Obtém a nova descrição do corpo da requisição
+    const data_viagem = req.body.data_viagem; // Obtém a nova data_viagem do corpo da requisição
+    const preco = req.body.preco; // Obtém o novo valor unitário do corpo da requisição
+    const vagas = req.body.vagas; // Obtém o novo vags do corpo da requisição
+ 
+    const update = "UPDATE viagens SET destino = ?, data_viagem = ?, preco = ?, vagas =? WHERE id = ?";
+ 
+    connection.query(update, [destino, data_viagem, preco,vagas, id], function(err, result){
+        if(!err){
+            console.log("Produto editado com sucesso!");
+            res.redirect('/listar'); // Redireciona para a página de listagem após a edição
+        }else{
+            console.log("Erro ao editar o produto ", err);
+            res.send("Erro")
+        }
+    });
 });
 
 // Inicia o servidor
