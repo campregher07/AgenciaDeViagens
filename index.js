@@ -35,6 +35,50 @@ app.get("/home", function(req,res) {
     res.sendFile(__dirname + "/index.html")
 });
 
+app.get("/cadastro", function(req,res) {
+    res.sendFile(__dirname + "/cadastro.html")
+});
+
+app.get("/recuperacao", function(req, res){
+    res.sendFile(__dirname + "/recuperarSenha.html") 
+})
+
+app.post("/recuperar", function(req, res){
+    const username = req.body.email;
+    const password = req.body.senha;
+    
+    const esquecer = "UPDATE usuarios SET senha = ? WHERE email = ?"
+
+    connection.query(esquecer, [password, username], function(err, result){
+        if (err){
+            console.error("Erro ao recuperar a senha ", err)
+            res.status(500).send("Erro interno ao recuperar a senha!")
+        }else {
+            console.log("Senha recuperada com sucesso");
+            res.redirect("/");
+        }
+    })
+});
+
+
+app.post("/cadastrar", function(req,res) {
+    const username = req.body.email;
+    const password = req.body.senha;
+
+    const insert = "INSERT INTO usuarios (email, senha) VALUES (?,?)";
+
+    connection.query(insert, [username,password], function(err, result){
+        if(err){
+            console.error("Erro ao inserir usuario", err);
+            res.status(500).send("Erro interno ao inserir usuario");
+            return
+        }else{
+            console.log("Usuario cadastrado com sucesso!");
+            res.redirect("/");
+        }
+    })
+});
+
 app.post("/login", function(req,res){
     const username = req.body.email;
     const password = req.body.senha;

@@ -79,6 +79,37 @@
             cursor: pointer;
             margin-top: 20px;
         }
+        .btn-cad {
+            width: 30%;
+            padding: 5px;
+            background: white;
+            color: linear-gradient(to right, #ff4081, #f50057);;
+            border: 2px solid linear-gradient(to right, #ff4081, #f50057);;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 2px;
+        }
+        a {
+            width: 50%;
+            padding: 5px;
+            background: linear-gradient(to right, #ff4081, #f50057);;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        a.esc {
+            width: 50%;
+            padding: 5px;
+            background: #ff4081;
+            color: black;
+            border: 2px solid linear-gradient(to right, #ff4081, #f50057);;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 30px;
+            margin-left: 100px;
+        }
         .btn:hover {
             background: linear-gradient(to right, #ff4081, #f50057);;
         }
@@ -99,7 +130,11 @@
                 <input type="email" name="email" placeholder="Digite seu e-mail" required>
                 
                 <label>Senha:</label>
-                <input type="password" name="senha" placeholder="Digite sua senha" maxlength="20" minlength="6" required>
+                <input type="password" name="senha" placeholder="Digite sua senha" maxlength="20" minlength="6" required><br><br>
+                <a href="/recuperacao" class="esc">Esqueci minha senha</a><br><br>
+
+                <p>Não tem uma conta? <br> <strong>Crie uma agora mesmo!</strong></p>
+                <button class="btn-cad" type="button" onclick="window.location.href='/cadastro'">Cadastrar</button>
                 
                 <input type="submit" value="Entrar" class="btn">
             </form>

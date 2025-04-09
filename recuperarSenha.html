@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperação de Senha</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f5f5f5;
+        }
+        .recuperar-container {
+            display: flex;
+            width: 600px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .recuperar-left {
+            width: 40%;
+            background: linear-gradient(to right, #ff4081, #f50057);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .recuperar-left h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .recuperar-left p {
+            font-size: 14px;
+            text-align: center;
+        }
+        .recuperar-right {
+            width: 60%;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: white;
+        }
+        p {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(to right, #ff4081, #f50057);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background: linear-gradient(to right, #f50057, #ff4081);
+        }
+    </style>
+</head>
+<body>
+    <div class="recuperar-container">
+        <div class="recuperar-left">
+            <h1>🔐 Recuperar Senha</h1>
+            <p>Redefina sua senha com segurança</p>
+        </div>
+        <div class="recuperar-right">
+            <h1>Esqueci minha senha 🔑</h1>
+            <p>Coloque seu email para criar uma nova senha</p>
+
+            <form method="post" action="/recuperar">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+
+                <label for="senha">Nova senha:</label>
+                <input type="password" id="senha" name="senha" placeholder="Crie uma nova senha" minlength="6" required>
+
+                <button type="submit" class="btn-esc">Recuperar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
